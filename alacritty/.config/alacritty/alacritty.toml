@@ -1,0 +1,161 @@
+import = []
+
+working_directory = "None"
+live_config_reload = true
+ipc_socket = true
+
+[shell]
+program = "/usr/bin/zsh"
+args = ["-l"] 
+
+# window dimensions (changes require restart)
+[window]
+dimensions = { columns = 0, lines = 0 }
+position = "None"
+padding = { x = 0, y = 0 }
+dynamic_padding = false
+decorations = "Full" # window decorations
+opacity = 0.9
+blur = false
+startup_mode = "Windowed"
+title = "Alacritty"
+dynamic_title = true # processes to change the window title
+class = { instance = "Alacritty", general = "Alacritty" }
+decorations_theme_variant = "Dark" # "Dark" | "Light" | "None"
+resize_increments = false
+option_as_alt = "None"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+normal = { family = "Ubuntu Mono Nerd Font", style = "Regular" }
+bold = { style = "Bold" }
+italic = { style = "Italic" }
+bold_italic = { style = "Bold Italic" }
+size = 12.00
+offset = { x = 0, y = 0 }
+glyph_offset = { x = 0, y = 0 }
+builtin_box_drawing = true
+
+[colors.primary]
+foreground = "#11ff11"
+background = "#181818"
+# dim_foreground = "#ffff00"
+bright_foreground = "#00ff00"
+
+[colors.cursor]
+text = "CellBackground"
+cursor = "CellForeground"
+
+[colors.vi_mode_cursor]
+text = "CellBackground"
+cursor = "CellForeground"
+
+[colors.search]
+matches = { foreground = "#00eeee", background = "#ac4242"}
+focused_match = { foreground = "#00eeee", background = "#f4bf75"}
+
+[colors.hints]
+start = { foreground = "CellForeground", background = "CellBackground" }
+end = { foreground = "CellForeground", background = "CellBackground" }
+
+[colors.line_indicator]
+foreground = "None"
+background = "None"
+
+[colors.footer_bar]
+foreground = "#181818"
+background = "#d8d8d8"
+
+[colors.selection]
+text = "CellBackground"
+background = "CellForeground"
+
+[colors.normal]
+black = "#181818"
+red = "#ac4242"
+green = "#90a959"
+yellow = "#f4bf75"
+blue = "#6a9fb5"
+magenta = "#aa759f"
+cyan = "#75b5aa"
+white = "#d8d8d8"
+
+[colors.bright]
+black = "#6b6b6b"
+red = "#c55555"
+green = "#aac474"
+yellow = "#feca88"
+blue = "#82b8c8"
+magenta = "#c28cb8"
+cyan = "#93d3c3"
+white = "#f8f8f8"
+
+# Dim colors
+[colors.dim]
+black = "#0f0f0f"  # Default
+red = "#712b2b"  # Default
+green = "#5f6f3a"  # Default
+yellow = "#a17e4d"  # Default
+blue = "#456877"  # Default
+magenta = "#704d68"  # Default
+cyan = "#4d7770"  # Default
+white = "#8e8e8e"  # Default
+
+[colors]
+indexed_colors = []
+transparent_background_colors = false
+draw_bold_text_with_bright_colors = true
+
+[bell]
+animation = "EaseOutSine"
+duration = 1
+color = "#ff0000"
+command = "None"
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\\t"
+save_to_clipboard = false
+
+[cursor]
+style = { shape = "Block", blinking = "Always" }
+vi_mode_style = "None"
+blink_interval = 100
+blink_timeout = 10
+unfocused_hollow = true
+thickness = 0.2
+
+[terminal]
+osc52 = "OnlyCopy"
+
+[mouse]
+hide_when_typing = false
+
+bindings = [
+  { mouse = "Right", mods = "Control", action = "Paste"},
+]
+
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+[[hints.enabled]]
+command         = "xdg-open" # On Linux/BSD
+hyperlinks      = true
+post_processing = true
+persist         = false
+mouse.enabled   = true
+binding         = { key = "U", mods = "Control|Shift" }
+regex       =        """(ipfs:|ipns:|magnet:|mailto:|gemini://|go‐
+pher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"""
+
+[keyboard]
+bindings = [
+{ key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+{ key = "L", mods = "Control|Shift", chars = "l" },
+]
+
+[debug]
+# render_timer = true
+# print_events = true
+# highlight_damage = true
