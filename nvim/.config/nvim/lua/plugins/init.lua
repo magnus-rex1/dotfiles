@@ -96,6 +96,7 @@ return {
         dependencies = { "stevearc/overseer.nvim" },
         opts = {},
     },
+
     { -- The task runner we use
         "stevearc/overseer.nvim",
         commit = "68a2d344cea4a2e11acfb5690dc8ecd1a1ec0ce0",
@@ -165,6 +166,44 @@ return {
                     },
                 },
             }
+        end,
+    },
+
+    {
+        "kristijanhusak/vim-dadbod-completion",
+        -- opts = {},
+    },
+
+    {
+        "kristijanhusak/vim-dadbod-ui",
+        dependencies = {
+            { "tpope/vim-dadbod", lazy = true },
+            { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+        },
+        cmd = {
+            "DBUI",
+            "DBUIToggle",
+            "DBUIAddConnection",
+            "DBUIFindBuffer",
+        },
+
+        init = function()
+            -- Your DBUI configuration
+            vim.g.db_ui_use_nerd_fonts = 1
+        end,
+        -- opts = {},
+    },
+
+    {
+        "tpope/vim-dadbod",
+        cmd = "DB",
+        requires = {
+            "kristijanhusak/vim-dadbod-ui",
+            "kristijanhusak/vim-dadbod-completion",
+        },
+        -- opts = {},
+        config = function ()
+           require("configs.dadbod").setup()
         end,
     },
     -- {
