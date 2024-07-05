@@ -131,6 +131,7 @@ return {
         config = function()
             require("render-markdown").setup {}
         end,
+        enabled = false,
     },
 
     {
@@ -202,9 +203,57 @@ return {
             "kristijanhusak/vim-dadbod-completion",
         },
         -- opts = {},
-        config = function ()
-           require("configs.dadbod").setup()
+        config = function()
+            require("configs.dadbod").setup()
         end,
+    },
+
+    {
+        "edluffy/hologram.nvim",
+        config = function()
+            require("hologram").setup() {
+                auto_display = true,
+            }
+        end,
+        -- opts = {}
+    },
+    -- install without yarn or npm
+    -- {
+    --     "iamcco/markdown-preview.nvim",
+    --     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    --     ft = { "markdown" },
+    --     build = function()
+    --         vim.fn["mkdp#util#install"]()
+    --     end,
+    --     config = function()
+    --         -- vim.g.mkdp_browser = "/usr/bin/google-chrome"
+    --         vim.g.mkgp_open_to_the_world =1
+    --         vim.g.mkgp_open_ip = '127.0.0.1'
+    --         vim.g.mkgp_port = 8080
+    --         vim.g.mkdp_browser = "none"
+    --         vim.g.mkgp_echo_preview_url = 1
+    --     end,
+    -- },
+
+    -- install with yarn or npm
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        build = "cd app && yarn install",
+        init = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+            vim.g.mkgp_open_to_the_world =1
+            vim.g.mkgp_open_ip = '127.0.0.1'
+            vim.g.mkgp_port = 8080
+            vim.g.mkdp_browser = "none"
+            vim.g.mkgp_echo_preview_url = 1
+        end,
+        -- config = function()
+        --     require("markdown-preview").setup() {
+        --         mkdp_browder = "/usr/bin/google-chrome",
+        --     }
+        -- end,
+        ft = { "markdown" },
     },
     -- {
     --     "goolord/alpha-nvim",

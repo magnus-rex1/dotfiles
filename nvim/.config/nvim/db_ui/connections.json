@@ -1,1 +1,1 @@
-[{"url": "mysql://root@localhost", "name": "information_schema"}]
+[{"url": "mysql://root@localhost", "name": "information_schema"}, {"url": "mysql://root@localhost/school_db", "name": "school_db"}]
