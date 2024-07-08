@@ -14,6 +14,7 @@ return {
             require "configs.lspconfig"
         end,
     },
+
     {
         "mfussenegger/nvim-dap",
         config = function()
@@ -113,15 +114,51 @@ return {
     --
     {
         "nvim-treesitter/nvim-treesitter",
-        opts = {
-            ensure_installed = {
-                "vim",
-                "lua",
-                "vimdoc",
-                "html",
-                "css",
-            },
-        },
+        -- opts = {
+        --     ensure_installed = {
+        --         "vim",
+        --         "lua",
+        --         "vimdoc",
+        --         "html",
+        --         "css",
+        --         "blade",
+        --     },
+        --     highlight = {
+        --         enable = true,
+        --     }
+        -- },
+        init = function()
+            require("nvim-treesitter.configs").setup {
+                ensure_installed = {
+                    "vim",
+                    "lua",
+                    "vimdoc",
+                    "html",
+                    "css",
+                },
+                highlight = {
+                    enable = true,
+
+                    additional_vim_regex_highlighting = false,
+                },
+            }
+
+            local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+            parser_config.blade = {
+                install_info = {
+                    url = "https://github.com/EmranMR/tree-sitter-blade",
+                    files = { "src/parser.c" },
+                    branch = "main",
+                },
+                filetype = "blade",
+            }
+
+            vim.filetype.add {
+                pattern = {
+                    [".*%.blade%.php"] = "blade",
+                },
+            }
+        end,
     },
 
     {
@@ -242,8 +279,8 @@ return {
         build = "cd app && yarn install",
         init = function()
             vim.g.mkdp_filetypes = { "markdown" }
-            vim.g.mkgp_open_to_the_world =1
-            vim.g.mkgp_open_ip = '127.0.0.1'
+            vim.g.mkgp_open_to_the_world = 1
+            vim.g.mkgp_open_ip = "127.0.0.1"
             vim.g.mkgp_port = 8080
             vim.g.mkdp_browser = "none"
             vim.g.mkgp_echo_preview_url = 1
@@ -255,76 +292,64 @@ return {
         -- end,
         ft = { "markdown" },
     },
+
+    -- Svelte plugins
+    { "pangloss/vim-javascript" },
+    { "othree/html5.vim" },
+
+    {
+        "evanleck/vim-svelte",
+        dependencies = {
+            "othree/html5.vim",
+            "pangloss/vim-javascript",
+            "evanleck/vim-svelte",
+        },
+    },
+
+    {
+        "jwalton512/vim-blade",
+        opts = {},
+    },
+
+    {
+        "ricardoramirezr/blade-nav.nvim",
+        dependencies = {
+            "hrsh7th/nvim-cmp", -- if using nvim-cmp
+            { "ms-jpq/coq_nvim", branch = "coq" }, -- if using coq
+        },
+        ft = { "blade", "php" }, -- optional, improves startup time
+    },
+
+    {
+        "adalessa/laravel.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "tpope/vim-dotenv",
+            "MunifTanjim/nui.nvim",
+            "nvimtools/none-ls.nvim",
+        },
+        cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },
+        keys = {
+            { "<leader>la", ":Laravel artisan<cr>" },
+            { "<leader>lr", ":Laravel routes<cr>" },
+            { "<leader>lm", ":Laravel related<cr>" },
+        },
+        event = { "VeryLazy" },
+        config = true,
+    },
+
+    {
+        "rcarriga/nvim-notify",
+        config = function()
+            local notify = require "notify"
+            -- this for transparency
+            notify.setup { background_colour = "#000000" }
+            -- this overwrites the vim notify function
+            vim.notify = notify.notify
+        end,
+    },
     -- {
-    --     "goolord/alpha-nvim",
-    --     event = "VimEnter",
-    --     enabled = true,
-    --     init = false,
-    --     opts = function()
-    --         local dashboard = require "alpha.themes.dashboard"
-    --         local logo = [[
-    --      ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
-    --      ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z
-    --      ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z
-    --      ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z
-    --      ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║
-    --      ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝
-    -- ]]
-    --
-    --         dashboard.section.header.val = vim.split(logo, "\n")
-    -- -- stylua: ignore
-    -- dashboard.section.buttons.val = {
-    --   dashboard.button("f", " " .. " Find file",       LazyVim.pick()),
-    --   dashboard.button("n", " " .. " New file",        [[<cmd> ene <BAR> startinsert <cr>]]),
-    --   dashboard.button("r", " " .. " Recent files",    LazyVim.pick("oldfiles")),
-    --   dashboard.button("g", " " .. " Find text",       LazyVim.pick("live_grep")),
-    --   dashboard.button("c", " " .. " Config",          LazyVim.pick.config_files()),
-    --   dashboard.button("s", " " .. " Restore Session", [[<cmd> lua require("persistence").load() <cr>]]),
-    --   dashboard.button("x", " " .. " Lazy Extras",     "<cmd> LazyExtras <cr>"),
-    --   dashboard.button("l", "󰒲 " .. " Lazy",            "<cmd> Lazy <cr>"),
-    --   dashboard.button("q", " " .. " Quit",            "<cmd> qa <cr>"),
-    -- }
-    --         for _, button in ipairs(dashboard.section.buttons.val) do
-    --             button.opts.hl = "AlphaButtons"
-    --             button.opts.hl_shortcut = "AlphaShortcut"
-    --         end
-    --         dashboard.section.header.opts.hl = "AlphaHeader"
-    --         dashboard.section.buttons.opts.hl = "AlphaButtons"
-    --         dashboard.section.footer.opts.hl = "AlphaFooter"
-    --         dashboard.opts.layout[1].val = 8
-    --         return dashboard
-    --     end,
-    --     config = function(_, dashboard)
-    --         -- close Lazy and re-open when the dashboard is ready
-    --         if vim.o.filetype == "lazy" then
-    --             vim.cmd.close()
-    --             vim.api.nvim_create_autocmd("User", {
-    --                 once = true,
-    --                 pattern = "AlphaReady",
-    --                 callback = function()
-    --                     require("lazy").show()
-    --                 end,
-    --             })
-    --         end
-    --
-    --         require("alpha").setup(dashboard.opts)
-    --
-    --         vim.api.nvim_create_autocmd("User", {
-    --             once = true,
-    --             pattern = "LazyVimStarted",
-    --             callback = function()
-    --                 local stats = require("lazy").stats()
-    --                 local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-    --                 dashboard.section.footer.val = "⚡ Neovim loaded "
-    --                     .. stats.loaded
-    --                     .. "/"
-    --                     .. stats.count
-    --                     .. " plugins in "
-    --                     .. ms
-    --                     .. "ms"
-    --                 pcall(vim.cmd.AlphaRedraw)
-    --             end,
-    --         })
-    --     end,
+    --     "haringsrob/laravel-dev-tools",
+    --     opts = {},
     -- },
 }
