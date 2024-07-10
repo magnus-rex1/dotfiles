@@ -43,7 +43,6 @@ vim.schedule(function()
   require "mappings"
 end)
 
-
 if vim.g.neovide then
   vim.print(vim.g.neovide_version)
   vim.o.guifont = "JetBrainsMono Nerd Font:h10"

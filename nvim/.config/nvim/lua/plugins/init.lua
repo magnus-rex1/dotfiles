@@ -1,3 +1,6 @@
+-- ToDo
+-- Add coc.nvim
+-- Add prettier.nvim plugins
 return {
     {
         "stevearc/conform.nvim",
