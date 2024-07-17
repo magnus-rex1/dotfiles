@@ -10,4 +10,6 @@ opt.relativenumber = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.cursorlineopt = 'both'
+opt.wrap = false
+opt.sidescroll=5
 -- opt.mouse=false -- Disable mouse
