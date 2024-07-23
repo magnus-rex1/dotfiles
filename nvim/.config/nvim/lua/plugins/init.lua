@@ -129,7 +129,7 @@ return {
             },
             highlight = {
                 enable = true,
-            }
+            },
         },
         -- init = function()
         --     require("nvim-treesitter.configs").setup {
@@ -352,6 +352,47 @@ return {
             vim.notify = notify.notify
         end,
     },
+
+    {
+        "tpope/vim-unimpaired",
+        config = function()
+        end,
+        lazy = false, -- load on startup
+    },
+
+    -- kitty highlighting
+    -- {
+    --     "fladson/vim-kitty",
+    --     opts = {},
+    -- },
+    --
+    -- {
+    --     "hrsh7th/nvim-cmp",
+    --     opts = {
+    --         completion = {
+    --             -- ...
+    --         },
+    --         sources = {
+    --             -- ...
+    --             {
+    --                 name = "kitty",
+    --                 option = {
+    --                     -- this is where any configuration should be inserted
+    --                 },
+    --             },
+    --         },
+    --     },
+    -- },
+    -- {
+    --     "garyhurtz/cmp_kitty",
+    --     dependencies = {
+    --         { "hrsh7th/nvim-cmp" },
+    --     },
+    --     init = function()
+    --         require("cmp_kitty"):setup()
+    --     end,
+    --     enabled = false,
+    -- },
     -- {
     --     "haringsrob/laravel-dev-tools",
     --     opts = {},
